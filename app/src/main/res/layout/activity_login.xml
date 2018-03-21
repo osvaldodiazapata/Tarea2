@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="d.osvaldo.tarea2.LoginActivity"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/burlywood">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:src="@drawable/imagenosfre"
+
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:text="correo:"
+                />
+            <EditText
+                android:id="@+id/eCorreo"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:hint="gonzalo@gmail.com"
+                android:inputType="textEmailAddress"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:text="contraseña:"
+
+                />
+            <EditText
+                android:id="@+id/ePassword"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:hint="ingrese su contraseña"
+                android:inputType="textPassword"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/bLoginContraseña"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:text="Registro"
+                android:background="@color/rosybrown"
+                />
+            <Button
+                android:id="@+id/bLogin"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:background="@color/green"
+                android:text="Aceptar"
+                />
+
+            <Switch
+                android:id="@+id/sPreferences"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:checked="true"
+                android:text="recordar"
+                android:textAlignment="center"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

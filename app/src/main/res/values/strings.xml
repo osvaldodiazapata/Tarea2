@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">MyLogin</string>
+    <string name="miperfil">Mi perfil</string>
+    <string name="login">LOGIN</string>
+    <string name="main">MAIN</string>
+    <string name="logout_forget">logout forget</string>
+    <string name="titulo">Mi formulario</string>
+    <string name="nombre">Nombre</string>
+    <string name="login2">Ingrese su Usuario</string>
+    <string name="password">Password:</string>
+    <string name="rpassword">rPassword:</string>
+    <string name="pass2">Ingrese su password</string>
+    <string name="pass3">Confirme su password</string>
+    <string name="correo">Correo:</string>
+    <string name="correo2">Ingrese su correo</string>
+    <string name="guardar">Aceptar</string>
+    <string name="masculino">Masculino</string>
+    <string name="femenino">Femenino</string>
+    <string name="pasatiempos">Pasa Tiempo</string>
+    <string name="fechaNaci">Fecha de Nacimiento: </string>
+    <string name="nadar">Nadar</string>
+    <string name="bailar">Bailar</string>
+    <string name="correr">Correr</string>
+    <string name="cine">Cine</string>
+    <string name="genero">Genero</string>
+    <string name="principal">Principal</string>
+    <string name="Cerrar">Cerrar Sesión</string>
+    <string name="usuario">Usuario:</string>
+
+
+</resources>

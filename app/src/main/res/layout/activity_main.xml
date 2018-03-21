@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/burlywood"
+    tools:context="d.osvaldo.tarea2.MainActivity">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:src="@drawable/imagenosfre"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
+        android:text="Lo que buscamos con esta app, es
+ que las pesonas que visitan los pueblos del suroeste antioqueño, puedan
+ recibir una atención oportuna y ágil en los quioscos que se encuentran en
+ los parques centrales de dichos pueblos.
+ Para ello, cada persona podrá identificarse en el respectivo quiosco y
+ gestionar su pedido desde la app."/>
+
+</LinearLayout>

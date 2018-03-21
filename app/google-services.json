@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "44109385475",
+    "firebase_url": "https://tarea2-8b8ee.firebaseio.com",
+    "project_id": "tarea2-8b8ee",
+    "storage_bucket": "tarea2-8b8ee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:44109385475:android:63087e401875414b",
+        "android_client_info": {
+          "package_name": "d.osvaldo.tarea2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "44109385475-4ilf8cjd2s90716dhu2l7u4kve0a9d66.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "d.osvaldo.tarea2",
+            "certificate_hash": "4a218460c529de1140278fc436e244321a06b477"
+          }
+        },
+        {
+          "client_id": "44109385475-n3ldim9eevkb2je16oag4530kptvmeff.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXak8GYFoMe4lgf0L-W2REqrWXmIoamws"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "44109385475-n3ldim9eevkb2je16oag4530kptvmeff.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
