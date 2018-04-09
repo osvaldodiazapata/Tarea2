@@ -3,6 +3,7 @@ package d.osvaldo.tarea2;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,7 +18,9 @@ import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -41,6 +44,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
      */
 
     private GoogleApiClient googleApiClient;
+    private SignInButton signInButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,6 +145,15 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         btnlogin =  findViewById(R.id.bLogin);
         btnLoginContraseña=  findViewById(R.id.bLoginContraseña);
         spreferences =  findViewById(R.id.sPreferences);
+        signInButton = (SignInButton) findViewById(R.id.signIn);
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+                startActivityForResult(intent, 777);
+
+            }
+        });
 
     }
 
@@ -192,5 +206,26 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 777){
+            GoogleSignInResult googleSignInResult = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignResult(googleSignInResult);
+        }
+    }
+
+    private void handleSignResult(GoogleSignInResult googleSignInResult) {
+        if (googleSignInResult.isSuccess()) gotoprueba();
+        else Toast.makeText(this, "no se pudo logear con google", Toast.LENGTH_SHORT).show();
+    }
+
+    private void gotoprueba() {
+        Intent intent = new Intent(this, PruebaActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 }

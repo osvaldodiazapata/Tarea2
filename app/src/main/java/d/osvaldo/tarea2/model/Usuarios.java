@@ -4,14 +4,14 @@ package d.osvaldo.tarea2.model;
  * Created by osval on 9/04/18.
  */
 
-public class usuarios {
+public class Usuarios {
     private String id, nombre, telefono;
 
-    public usuarios() {
+    public Usuarios() {
 
     }
 
-    public usuarios(String id, String nombre, String telefono) {
+    public Usuarios(String id, String nombre, String telefono) {
         this.id = id;
         this.nombre = nombre;
         this.telefono = telefono;
