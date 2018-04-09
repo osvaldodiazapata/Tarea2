@@ -25,10 +25,13 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/main" />
-        <activity android:name=".RegistroActivity"
-            android:label="REGISTRO"/>
-        <activity android:name=".PerfilActivity"
-            android:label="PERFIL"/>
+        <activity
+            android:name=".RegistroActivity"
+            android:label="REGISTRO" />
+        <activity
+            android:name=".PerfilActivity"
+            android:label="PERFIL" />
+        <activity android:name=".PruebaActivity"></activity>
     </application>
 
 </manifest>

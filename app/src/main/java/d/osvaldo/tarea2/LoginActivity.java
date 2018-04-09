@@ -3,9 +3,11 @@ package d.osvaldo.tarea2;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -13,13 +15,32 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
-public class LoginActivity extends AppCompatActivity {
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     Switch spreferences;
     EditText email, password;
     Button btnlogin, btnLoginContraseña;
     String passprevio="";
     private SharedPreferences pref;
+
+    private FirebaseAuth firebaseauth; //componente para manejar la autenticacion
+    private FirebaseAuth.AuthStateListener authStateListener; //componente listen
+
+    /**
+     para el login con google
+     */
+
+    private GoogleApiClient googleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +52,35 @@ public class LoginActivity extends AppCompatActivity {
 
 
         pref = getSharedPreferences("preferencias", Context.MODE_PRIVATE);
+        inicializar();
         setCredentialsExis();
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
 
         btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String correo = email.getText().toString();
+                String pass = password.getText().toString();
+
+                firebaseauth.signInWithEmailAndPassword(correo, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()){
+                            gotoMain();
+                        }else{
+                            Toast.makeText(LoginActivity.this, "Error al iniciar", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                /*String correo = email.getText().toString();
                 String pass = password.getText().toString();
                 if (TextUtils.equals(pass, passprevio) && !TextUtils.isEmpty(pass)) {
                     if (login(correo, pass)) {
@@ -45,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }else{
                     Toast.makeText(LoginActivity.this, "olvidaste la contraseña?", Toast.LENGTH_SHORT).show();
-                }
+                }*/
             }
         });
 
@@ -56,6 +100,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+
     private void setCredentialsExis(){
         String preEmail = getUserMailPref();
         String prefPassword = getPasswordPref();
@@ -65,7 +111,20 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     }
-
+    private void inicializar(){ //metodo para inicializar los componentes de firebase
+        firebaseauth = FirebaseAuth.getInstance();
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                if(firebaseUser != null){
+                    Log.d("firebaseUser", "Ususario LOgeado" + firebaseUser.getEmail());
+                }else{
+                    Log.d("firebaseUser", "no hay Ususario LOgeado" );
+                }
+            }
+        };
+    }
     private String getUserMailPref(){
 
         return pref.getString("correo", "");
@@ -127,6 +186,11 @@ public class LoginActivity extends AppCompatActivity {
             editor.apply();//esta linea permite que el almacenamiento de los datos, se haga por debajo de la ejecucion. conocido como shared asincrono
 
         }
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
 }

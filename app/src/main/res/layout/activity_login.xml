@@ -106,8 +106,15 @@
                 android:textSize="15sp"
                 android:checked="true"
                 android:text="recordar"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                tools:ignore="NewApi" />
 
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/signIn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
