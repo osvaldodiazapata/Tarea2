@@ -109,11 +109,30 @@
                 android:textAlignment="center"
                 tools:ignore="NewApi" />
 
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
             <com.google.android.gms.common.SignInButton
                 android:id="@+id/signIn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/btnSignInFacebook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 />
         </LinearLayout>
     </LinearLayout>

@@ -26,6 +26,9 @@
     <string name="principal">Principal</string>
     <string name="Cerrar">Cerrar Sesión</string>
     <string name="usuario">Usuario:</string>
+    <string name="facebook_app_id">2132492610318157</string>
+    <string name="fb_login_protocol_scheme">fb2132492610318157</string>
+
 
 
 </resources>
