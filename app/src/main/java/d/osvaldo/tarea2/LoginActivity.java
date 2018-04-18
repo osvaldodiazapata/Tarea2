@@ -45,7 +45,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.Signature;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
-
+    int prueba = 0;
     Switch spreferences;
     EditText email, password;
     Button btnlogin, btnLoginContraseña;
