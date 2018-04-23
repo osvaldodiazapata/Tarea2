@@ -77,7 +77,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         setContentView(R.layout.activity_login);
 
         bindOn();//refenciamos los objetos del xml
-        int cual=0;+
 
 
 
