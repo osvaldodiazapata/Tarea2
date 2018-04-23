@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textSize="15sp"
-                android:text="correo:"
+                android:text="@string/correo1"
                 />
             <EditText
                 android:id="@+id/eCorreo"
@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textSize="15sp"
-                android:hint="gonzalo@gmail.com"
+                android:hint="@string/gonzalo_gmail_com"
                 android:inputType="textEmailAddress"/>
         </LinearLayout>
 
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textSize="15sp"
-                android:text="contraseña:"
+                android:text="@string/contrasegna"
 
                 />
             <EditText
@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textSize="15sp"
-                android:hint="ingrese su contraseña"
+                android:hint="@string/ingrese_su_contrase_a"
                 android:inputType="textPassword"/>
         </LinearLayout>
         <LinearLayout
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textSize="15sp"
-                android:text="Registro"
+                android:text="@string/registro"
                 android:background="@color/rosybrown"
                 />
             <Button
@@ -94,7 +94,7 @@
                 android:textStyle="bold"
                 android:textSize="15sp"
                 android:background="@color/green"
-                android:text="Aceptar"
+                android:text="@string/aceptar"
                 />
 
             <Switch
@@ -105,7 +105,7 @@
                 android:textStyle="bold"
                 android:textSize="15sp"
                 android:checked="true"
-                android:text="recordar"
+                android:text="@string/recordar"
                 android:textAlignment="center"
                 tools:ignore="NewApi" />
 
@@ -117,7 +117,7 @@
             android:orientation="horizontal">
             <com.google.android.gms.common.SignInButton
                 android:id="@+id/signIn"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 />
