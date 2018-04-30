@@ -197,6 +197,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             public void onSuccess(LoginResult loginResult) {
                 Log.d("Login con Facebook", "Login Exitoso");
                 SignInFacebook(loginResult.getAccessToken());
+                //gotoMain();
             }
 
             @Override

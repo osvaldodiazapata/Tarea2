@@ -41,7 +41,7 @@
         <activity
             android:name=".ProductosActivity"
             android:label="@string/title_activity_productos"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

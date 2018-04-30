@@ -17,6 +17,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="telefono"/>
+    <EditText
+        android:id="@+id/edPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"/>
+    <EditText
+        android:id="@+id/edPrivilegio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="privilegio"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
