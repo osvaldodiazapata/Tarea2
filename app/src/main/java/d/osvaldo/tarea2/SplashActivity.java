@@ -19,6 +19,7 @@ public class SplashActivity extends AppCompatActivity {
         pref = getSharedPreferences("preferencias", Context.MODE_PRIVATE);
         Intent intentLogin = new Intent(this, LoginActivity.class);
         Intent intentMain = new Intent(this, MainActivity.class);
+        Intent intentProductos = new Intent(this, ProductosActivity.class);
 
         /*if(!TextUtils.isEmpty(getPasswordPref()) && !TextUtils.isEmpty(getUserMailPref())){
             startActivity(intentMain);
@@ -26,7 +27,7 @@ public class SplashActivity extends AppCompatActivity {
 
         startActivity(intentLogin);
         }*/
-        startActivity(intentLogin);
+        startActivity(intentMain);
         finish();
     }
     private String getUserMailPref(){return pref.getString("correo", "");}

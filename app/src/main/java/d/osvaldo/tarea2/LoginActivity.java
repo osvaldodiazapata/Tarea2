@@ -39,6 +39,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -52,6 +53,10 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     Button btnlogin, btnLoginContraseña;
     String passprevio="";
     private SharedPreferences pref;
+
+    /**
+     * para autenticacion con firebase
+     */
 
     private FirebaseAuth firebaseauth; //componente para manejar la autenticacion
     private FirebaseAuth.AuthStateListener authStateListener; //componente listen
@@ -69,7 +74,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
      */
 
     private LoginButton btnSignInFacebook;
-    private CallbackManager callbackManager = CallbackManager.Factory.create();
+    private CallbackManager callbackManager;
 
 
     @Override
@@ -79,13 +84,13 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         bindOn();//refenciamos los objetos del xml
 
-
-
         pref = getSharedPreferences("preferencias", Context.MODE_PRIVATE);
         inicializar();
+
         setCredentialsExis();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 
@@ -99,27 +104,18 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             public void onClick(View view) {
                 String correo = email.getText().toString();
                 String pass = password.getText().toString();
-
-                firebaseauth.signInWithEmailAndPassword(correo, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()){
-                            gotoMain();
-                        }else{
-                            Toast.makeText(LoginActivity.this, "Error al iniciar", Toast.LENGTH_SHORT).show();
+                if (login(correo, pass)) {
+                    firebaseauth.signInWithEmailAndPassword(correo, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()){
+                                gotoMain();
+                            }else{
+                                Toast.makeText(LoginActivity.this, "Error al iniciar", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
-                /*String correo = email.getText().toString();
-                String pass = password.getText().toString();
-                if (TextUtils.equals(pass, passprevio) && !TextUtils.isEmpty(pass)) {
-                    if (login(correo, pass)) {
-                        gotoMain();
-                        saveOnPreferences(correo, pass);
-                    }
-                }else{
-                    Toast.makeText(LoginActivity.this, "olvidaste la contraseña?", Toast.LENGTH_SHORT).show();
-                }*/
+                    });
+                }
             }
         });
 
@@ -148,9 +144,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                 if(firebaseUser != null){
-                    Log.d("firebaseUser", "Ususario LOgeado" + firebaseUser.getEmail());
+                    Log.d("firebaseUser", "Ususario Logeado: " + firebaseUser.getDisplayName());
+                    Log.d("firebaseUser", "Ususario Logeado: " + firebaseUser.getEmail());
+                    gotoMain();
                 }else{
-                    Log.d("firebaseUser", "no hay Ususario LOgeado" );
+                    Log.d("firebaseUser", "no hay Usuario logeado" );
                 }
             }
         };
@@ -190,6 +188,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     private void withfacebook() {
+        callbackManager = CallbackManager.Factory.create();
         btnSignInFacebook = findViewById(R.id.btnSignInFacebook);
         btnSignInFacebook.setReadPermissions("email", "public_profile");  //permisos del boton de facebook
         btnSignInFacebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -197,7 +196,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             public void onSuccess(LoginResult loginResult) {
                 Log.d("Login con Facebook", "Login Exitoso");
                 SignInFacebook(loginResult.getAccessToken());
-                //gotoMain();
             }
 
             @Override
@@ -219,7 +217,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    gotoprueba();
+                    gotoMain();
                 }else
                     Toast.makeText(LoginActivity.this, "Autenticacion con Facebook no exitosa", Toast.LENGTH_SHORT).show();
             }
@@ -261,11 +259,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         startActivity(intent);
     }
 
-    private void gotoprueba() {
-        Intent intent = new Intent(this, PruebaActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
+
 
     private void saveOnPreferences(String correo, String password){
         if (spreferences.isChecked()){
@@ -280,7 +274,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) { //metodo solicitado para la autenticacion con google
 
     }
 
@@ -291,13 +285,36 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         if (requestCode == 777){
             GoogleSignInResult googleSignInResult = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignResult(googleSignInResult);
+        }else{
+            callbackManager.onActivityResult(requestCode, resultCode, data);
         }
     }
 
     private void handleSignResult(GoogleSignInResult googleSignInResult) {
-        if (googleSignInResult.isSuccess()) gotoprueba();
-        else Toast.makeText(this, "no se pudo logear con google", Toast.LENGTH_SHORT).show();
+        if (googleSignInResult.isSuccess()){
+            AuthCredential authCredential = GoogleAuthProvider.getCredential(
+                    googleSignInResult.getSignInAccount().getIdToken(), null);
+            firebaseauth.signInWithCredential(authCredential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    gotoMain();
+                }
+            });
+
+
+        }else
+            Toast.makeText(this, "no se pudo logear con google", Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        firebaseauth.addAuthStateListener(authStateListener);
+    }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        firebaseauth.removeAuthStateListener(authStateListener);
+    }
 }

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -33,6 +34,12 @@ public class AdapterProductos extends RecyclerView.Adapter<AdapterProductos.Prod
     @Override
     public ProductosViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(resource, parent, false);
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(activity, "abre actividad con detalle", Toast.LENGTH_SHORT).show();
+            }
+        });
         return new ProductosViewHolder(itemView);
     }
 
