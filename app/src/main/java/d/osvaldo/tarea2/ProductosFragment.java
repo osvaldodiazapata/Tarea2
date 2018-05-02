@@ -41,31 +41,38 @@ public class ProductosFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true); //activa la persistencia de datos
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View itemView = inflater.inflate(R.layout.fragment_productos, container, false);
+
+        productoslist = new ArrayList<>();
+        layoutManager = new LinearLayoutManager(getContext());
+        adapterProductos = new AdapterProductos(productoslist, R.layout.cardview_detalle, getActivity());
+
         recyclerView = itemView.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        productoslist = new ArrayList<>();
-        adapterProductos = new AdapterProductos(productoslist, R.layout.cardview_detalle, getActivity());
         recyclerView.setAdapter(adapterProductos);
 
-        databaseReference.child("productos").addValueEventListener(new ValueEventListener() {
+
+
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true); //activa la persistencia de datos
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.keepSynced(true);
+        databaseReference.child("Productos").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 productoslist.clear();
                 if (dataSnapshot.exists()){
-                    Log.d("data: ", "tenemosinfo");
-                    for (DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    Log.d("data: ", "tenemos informacion");
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                        //Log.d("datossssss ", "tenemos"+ snapshot.getValue());
                         Productos productos = snapshot.getValue(Productos.class);
                         productoslist.add(productos);
+                        //Log.d("lista ", "tenemos " + productoslist);
                     }
                     adapterProductos.notifyDataSetChanged();
+                    Log.d("notificacion", "realizada");
                 }else{
                     Log.d("data: ", "no tenemos datos");
                 }
@@ -80,4 +87,8 @@ public class ProductosFragment extends Fragment {
         return itemView;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
 }

@@ -6,6 +6,11 @@
         app:showAsAction="never">
 
     </item>
+    <item android:id="@+id/miproductosActivity"
+        android:title="Mis productos"
+        app:showAsAction="never">
+
+    </item>
 
     <item android:id="@+id/mipruebaActivity"
         android:title="Mis usuarios"

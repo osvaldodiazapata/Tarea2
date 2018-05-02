@@ -21,6 +21,8 @@ import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import d.osvaldo.tarea2.model.Productos;
+
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     private SharedPreferences pref;
@@ -65,6 +67,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             case R.id.mipruebaActivity:
                 gotoprueba();
                 return true;
+            case R.id.miproductosActivity:
+                gotoproductos();
+                return true;
             case R.id.logout_forget:
                 firebaseauth.signOut();
                 if (Auth.GoogleSignInApi != null){
@@ -102,6 +107,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         startActivity(intent);
     }
     private void gotoprueba() {
+        Intent intent = new Intent(this, PruebaActivity.class);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+    private void gotoproductos() {
         Intent intent = new Intent(this, ProductosActivity.class);
         //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

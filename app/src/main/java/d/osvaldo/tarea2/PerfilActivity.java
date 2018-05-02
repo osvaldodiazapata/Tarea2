@@ -3,19 +3,36 @@ package d.osvaldo.tarea2;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class PerfilActivity extends AppCompatActivity {
+import com.facebook.login.LoginManager;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+public class PerfilActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     TextView eusuarioperfil, ecorreoperfil;
 
     private SharedPreferences pref;
+    private FirebaseAuth firebaseauth; //componente para manejar la autenticacion
+    private FirebaseAuth.AuthStateListener authStateListener; //componente listen
+
+    private GoogleApiClient googleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +43,16 @@ public class PerfilActivity extends AppCompatActivity {
 
         pref = getSharedPreferences("preferencias", Context.MODE_PRIVATE);
         setCredentialsExis();
+        inicializar();
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
     }
     private void setCredentialsExis(){
         String preEmail = getUserMailPref();
@@ -58,14 +85,53 @@ public class PerfilActivity extends AppCompatActivity {
             case R.id.Principal:
                 gotoPrincipal();
                 return true;
+            case R.id.mipruebaActivity:
+                gotoprueba();
+                return true;
+            case R.id.miproduActivity:
+                gotoproductos();
+                return true;
             case R.id.CerrarSesion:
+                firebaseauth.signOut();
+                if (Auth.GoogleSignInApi != null){
+                    Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
+                        @Override
+                        public void onResult(@NonNull Status status) {
+                            if (status.isSuccess()){
+                                gotoLogin();
+                            }else{
+                                Toast.makeText(PerfilActivity.this, "Error cerrando Sesion con Google",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+                if (LoginManager.getInstance() != null){
+                    LoginManager.getInstance().logOut();
+                }
                 removeSharePreferences();
                 return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    private void gotoLogin() {
+        Intent intentLogin = new Intent(this, LoginActivity.class);
+        startActivity(intentLogin);
+        finish();
+    }
+    private void gotoprueba() {
+        Intent intent = new Intent(this, PruebaActivity.class);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+    private void gotoproductos() {
+        Intent intent = new Intent(this, ProductosActivity.class);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
     private void gotoPrincipal(){
         Intent intent = new Intent(this, MainActivity.class);
         finish();
@@ -76,5 +142,57 @@ public class PerfilActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+    }
+    private void inicializar(){ //metodo para inicializar los componentes de firebase
+        firebaseauth = FirebaseAuth.getInstance();
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                if(firebaseUser != null){
+                    Log.d("firebaseUser", "Ususario Logeado" + firebaseUser.getDisplayName());
+                    Log.d("firebaseUser", "Ususario Logeado" + firebaseUser.getEmail());
+                }else{
+                    Log.d("firebaseUser", "no hay Ususario LOgeado" );
+                }
+            }
+        };
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        firebaseauth.addAuthStateListener(authStateListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        firebaseauth.removeAuthStateListener(authStateListener);
+        googleApiClient.disconnect();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        googleApiClient.stopAutoManage(this);
+        googleApiClient.disconnect();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        googleApiClient.stopAutoManage(this);
+        googleApiClient.disconnect();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        googleApiClient.connect();
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 }

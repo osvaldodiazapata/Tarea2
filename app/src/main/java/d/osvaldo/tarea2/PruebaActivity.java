@@ -52,7 +52,7 @@ public class PruebaActivity extends AppCompatActivity {
         //listView.setAdapter(usuarioAdapter);
 
 
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true); //activa la persistencia de datos
+        //FirebaseDatabase.getInstance().setPersistenceEnabled(true); //activa la persistencia de datos
         databaseReference = FirebaseDatabase.getInstance().getReference();
         listUsuarios = new ArrayList<Usuarios>();
 
