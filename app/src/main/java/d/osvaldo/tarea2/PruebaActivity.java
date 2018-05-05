@@ -44,21 +44,11 @@ public class PruebaActivity extends AppCompatActivity {
         eNombre = findViewById(R.id.edNombre);
         ePassword = findViewById(R.id.edPassword);
         ePrivilegio = findViewById(R.id.edPrivilegio);
-
         listView = findViewById(R.id.listView);
-
-        //nombrelist = new ArrayList<>();
-        //usuarioAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1);
-        //listView.setAdapter(usuarioAdapter);
-
-
-        //FirebaseDatabase.getInstance().setPersistenceEnabled(true); //activa la persistencia de datos
         databaseReference = FirebaseDatabase.getInstance().getReference();
         listUsuarios = new ArrayList<Usuarios>();
-
         final UsuarioAdapter usuarioAdapter = new UsuarioAdapter(this, listUsuarios);
         listView.setAdapter(usuarioAdapter);
-
         /*listView.setOnItemLongClickListener(
                 String uid = listUsuarios.get(position).getId();
                 databaseReference.child("usuarios").child(uid).removeValue();
@@ -90,16 +80,18 @@ public class PruebaActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) {
-        Usuarios usuarioo = new Usuarios(databaseReference.push().getKey(), //comando para capturar el id de los datos
-                eNombre.getText().toString(),
-                ePassword.getText().toString(),
-                ePrivilegio.getText().toString()
-        );
+        if(!eNombre.getText().toString().isEmpty() && !ePassword.getText().toString().isEmpty()) {
+            Usuarios usuarioo = new Usuarios(databaseReference.push().getKey(), //comando para capturar el id de los datos
+                    eNombre.getText().toString(),
+                    ePassword.getText().toString(),
+                    ePrivilegio.getText().toString()
+            );
 
-        databaseReference.child("usuarios").child(usuarioo.getId()).setValue(usuarioo);
-        Log.d("conexion", "exitosa");
-
-
+            databaseReference.child("usuarios").child(usuarioo.getId()).setValue(usuarioo);
+            Log.d("", "exitosa");
+        }else{
+            Toast.makeText(this, "TE FALTA INGRESAR INFORMACION", Toast.LENGTH_SHORT).show();
+        }
     }
 
     class UsuarioAdapter extends ArrayAdapter<Usuarios>{

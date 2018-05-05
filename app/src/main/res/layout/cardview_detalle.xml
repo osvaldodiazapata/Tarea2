@@ -5,6 +5,7 @@
     android:layout_height="80dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/productosCardview"
+    android:background="@color/darkcyan"
     >
 
     <LinearLayout
@@ -15,8 +16,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:src="@android:drawable/btn_dialog"
             android:id="@+id/iFoto"
              />
@@ -30,14 +31,15 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
+                android:textSize="25sp"
+                android:textStyle="bold|italic"
                 android:text="Nombre"
                 android:id="@+id/tNombre"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
+                android:textSize="20sp"
                 android:gravity="end"
                 android:text="Precio"
                 android:id="@+id/tPrecio"/>

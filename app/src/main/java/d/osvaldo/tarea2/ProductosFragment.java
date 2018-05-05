@@ -32,7 +32,7 @@ public class ProductosFragment extends Fragment {
 
     private ArrayList<Productos> productoslist;
 
-    private FirebaseDatabase firebaseDatabase;
+    //private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
 
     public ProductosFragment() {
@@ -54,9 +54,7 @@ public class ProductosFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapterProductos);
 
-
-
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true); //activa la persistencia de datos
+        //firebaseDatabase.getInstance().setPersistenceEnabled(true); //activa la persistencia de datos
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.keepSynced(true);
         databaseReference.child("Productos").addValueEventListener(new ValueEventListener() {
@@ -66,10 +64,10 @@ public class ProductosFragment extends Fragment {
                 if (dataSnapshot.exists()){
                     Log.d("data: ", "tenemos informacion");
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                        //Log.d("datossssss ", "tenemos"+ snapshot.getValue());
+                        Log.d("datossssss ", "tenemos"+ snapshot.getValue());
                         Productos productos = snapshot.getValue(Productos.class);
                         productoslist.add(productos);
-                        //Log.d("lista ", "tenemos " + productoslist);
+                        Log.d("lista ", "tenemos " + productoslist);
                     }
                     adapterProductos.notifyDataSetChanged();
                     Log.d("notificacion", "realizada");
@@ -90,5 +88,29 @@ public class ProductosFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
     }
 }

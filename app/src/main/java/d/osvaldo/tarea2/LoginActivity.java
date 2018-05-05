@@ -40,19 +40,24 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Signature;
 
+import d.osvaldo.tarea2.model.Usuarios;
+
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
-    int prueba = 0;
-    int variableOsvaldo=0;
+
     Switch spreferences;
     EditText email, password;
     Button btnlogin, btnLoginContraseña;
-    String passprevio="";
+    String passprevio="", Userprevio="";
+
     private SharedPreferences pref;
+    private DatabaseReference databaseReference;
 
     /**
      * para autenticacion con firebase
@@ -88,6 +93,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         inicializar();
 
         setCredentialsExis();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -102,8 +108,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String correo = email.getText().toString();
-                String pass = password.getText().toString();
+                final String correo = email.getText().toString();
+                final String pass = password.getText().toString();
+                final String privilegio = "Usuario";
                 if (login(correo, pass)) {
                     firebaseauth.signInWithEmailAndPassword(correo, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
@@ -115,6 +122,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             }
                         }
                     });
+
                 }
             }
         });
@@ -144,9 +152,26 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                 if(firebaseUser != null){
-                    Log.d("firebaseUser", "Ususario Logeado: " + firebaseUser.getDisplayName());
-                    Log.d("firebaseUser", "Ususario Logeado: " + firebaseUser.getEmail());
-                    gotoMain();
+                    String UserActual = firebaseUser.getEmail();
+
+                //    if (UserActual == Userprevio){
+                        Userprevio = firebaseUser.getEmail();
+                        //Toast.makeText(LoginActivity.this, "user:  "+ Userprevio, Toast.LENGTH_SHORT).show();
+                        String privilegio = "Usuario";
+                        Usuarios usuarioo = new Usuarios(databaseReference.push().getKey(),
+                                firebaseUser.getEmail(),
+                                firebaseUser.getEmail(),
+                                privilegio);
+                        databaseReference.child("usuarios").child(usuarioo.getId()).setValue(usuarioo);
+                        gotoMain();
+
+                  //  }else
+                    //    {
+                           // Toast.makeText(LoginActivity.this, "iguales ", Toast.LENGTH_SHORT).show();
+                           // Userprevio = firebaseUser.getEmail();
+                           // gotoMain();
+                    //}
+
                 }else{
                     Log.d("firebaseUser", "no hay Usuario logeado" );
                 }
@@ -318,3 +343,20 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         firebaseauth.removeAuthStateListener(authStateListener);
     }
 }
+
+/*
+*
+*
+* if(!eNombre.getText().toString().isEmpty() && !ePassword.getText().toString().isEmpty()) {
+            Usuarios usuarioo = new Usuarios(databaseReference.push().getKey(), //comando para capturar el id de los datos
+                    eNombre.getText().toString(),
+                    ePassword.getText().toString(),
+                    ePrivilegio.getText().toString()
+            );
+
+            databaseReference.child("usuarios").child(usuarioo.getId()).setValue(usuarioo);
+            Log.d("", "exitosa");
+        }else{
+            Toast.makeText(this, "TE FALTA INGRESAR INFORMACION", Toast.LENGTH_SHORT).show();
+        }
+ */

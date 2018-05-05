@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 return true;
             case R.id.logout_forget:
                 firebaseauth.signOut();
+                Log.d("Manejador", "cosas : "+LoginManager.getInstance());
                 if (Auth.GoogleSignInApi != null){
                     Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
                         @Override
@@ -84,8 +85,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                             }
                         }
                     });
+                    Log.d("CerrarSesion", "Google");
                 }
                 if (LoginManager.getInstance() != null){
+                    Log.d("CerrarSesion", "facebook");
                     LoginManager.getInstance().logOut();
                 }
                 removeSharePreferences();
@@ -150,11 +153,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     protected void onStart() {
         super.onStart();
         firebaseauth.addAuthStateListener(authStateListener);
+        Log.d("estado", "onstart");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+        Log.d("estado", "onstop");
         firebaseauth.removeAuthStateListener(authStateListener);
         googleApiClient.disconnect();
     }
@@ -162,6 +167,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     @Override
     protected void onPause() {
         super.onPause();
+        Log.d("estado", "onpause");
         googleApiClient.stopAutoManage(this);
         googleApiClient.disconnect();
     }
@@ -169,6 +175,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.d("estado", "destroy");
         googleApiClient.stopAutoManage(this);
         googleApiClient.disconnect();
     }
@@ -176,6 +183,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     @Override
     protected void onResume() {
         super.onResume();
+        Log.d("estado", "onresume");
         googleApiClient.connect();
     }
 
