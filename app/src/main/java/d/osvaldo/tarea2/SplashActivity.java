@@ -18,7 +18,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        firebaseDatabase.getInstance().setPersistenceEnabled(true); //activa la persistencia de datos
+        //firebaseDatabase.getInstance().setPersistenceEnabled(true); //activa la persistencia de datos
         pref = getSharedPreferences("preferencias", Context.MODE_PRIVATE);
         Intent intentLogin = new Intent(this, LoginActivity.class);
         Intent intentMain = new Intent(this, MainActivity.class);

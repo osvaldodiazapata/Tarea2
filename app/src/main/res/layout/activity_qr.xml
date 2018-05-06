@@ -25,4 +25,14 @@
         android:textStyle="bold"
         android:textColor="@color/colorPrimary"
         android:gravity="center"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:onClick="buttonclicked"
+        android:text="CaptureCode"
+        android:textSize="10dp"
+        tools:ignore="OnClick" />
+
 </LinearLayout>

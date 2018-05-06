@@ -23,7 +23,7 @@
             android:background="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="DataBase">
+            app:title="Gestor de pedidos">
 
         </android.support.v7.widget.Toolbar>
 
@@ -44,7 +44,7 @@
                 android:id="@+id/tabItem2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/qrReader" />
+                android:text="@string/Pedidos" />
 
 
 

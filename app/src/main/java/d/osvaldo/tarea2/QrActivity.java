@@ -1,5 +1,6 @@
 package d.osvaldo.tarea2;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.vision.CameraSource;
@@ -82,7 +84,18 @@ public class QrActivity extends AppCompatActivity {
                    // if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) !)
                 }
             }
-        }
+
+
+    public void buttonclicked(View view) {
+        gotoproductos();
+
+    }
+    private void gotoproductos() {
+        Intent intent = new Intent(this, ProductosActivity.class);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+}
    // }
 //}
 

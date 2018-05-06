@@ -27,4 +27,11 @@
  Para ello, cada persona podrá identificarse en el respectivo quiosco y
  gestionar su pedido desde la app."/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Empezar"
+        android:background="@color/colorPrimary"
+        android:onClick="buttonClick"/>
+
 </LinearLayout>

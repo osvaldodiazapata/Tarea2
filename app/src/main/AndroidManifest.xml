@@ -46,7 +46,9 @@
             android:name=".ProductosActivity"
             android:label="@string/title_activity_productos"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".QrActivity"></activity>
+        <activity
+            android:name=".QrActivity"
+            android:label="@string/CodigoQr"/>
     </application>
 
 </manifest>
