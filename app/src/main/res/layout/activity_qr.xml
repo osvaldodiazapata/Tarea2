@@ -31,8 +31,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:onClick="buttonclicked"
-        android:text="CaptureCode"
+        android:text="Capture-Code PUSH"
         android:textSize="10dp"
+        android:background="@color/colorPrimary"
         tools:ignore="OnClick" />
 
 </LinearLayout>
