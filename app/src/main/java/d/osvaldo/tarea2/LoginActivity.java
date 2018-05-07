@@ -255,7 +255,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             return false;
         }
         if(!isValidPassword(password)){
-            Toast.makeText(this, "Minimo 5 caracteres en el password", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Minimo 9 caracteres en el password", Toast.LENGTH_SHORT).show();
             return false;
         }
         else {
