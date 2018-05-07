@@ -7,9 +7,22 @@
         android:title="@string/principal"
         app:showAsAction="never"
         />
+
+    <item android:id="@+id/miproduActivity"
+        android:title="Mis productos"
+        app:showAsAction="never">
+
+    </item>
+
+    <item android:id="@+id/mipruebaActivity"
+        android:title="Mis usuarios"
+        app:showAsAction="never">
+
+    </item>
+
     <item
         android:id="@+id/CerrarSesion"
         android:title="@string/Cerrar"
         app:showAsAction="never"
-    />
+        />
 </menu>

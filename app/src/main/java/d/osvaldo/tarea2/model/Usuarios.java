@@ -5,16 +5,16 @@ package d.osvaldo.tarea2.model;
  */
 
 public class Usuarios {
-    private String id, nombre, telefono;
+    private String id, nombre, password, privilegio;
 
     public Usuarios() {
-
     }
 
-    public Usuarios(String id, String nombre, String telefono) {
+    public Usuarios(String id, String nombre, String password, String privilegio) {
         this.id = id;
         this.nombre = nombre;
-        this.telefono = telefono;
+        this.password = password;
+        this.privilegio = privilegio;
     }
 
     public String getId() {
@@ -33,11 +33,19 @@ public class Usuarios {
         this.nombre = nombre;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public String getPassword() {
+        return password;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPrivilegio() {
+        return privilegio;
+    }
+
+    public void setPrivilegio(String privilegio) {
+        this.privilegio = privilegio;
     }
 }
