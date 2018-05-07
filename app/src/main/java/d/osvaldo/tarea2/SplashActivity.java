@@ -39,4 +39,6 @@ public class SplashActivity extends AppCompatActivity {
         return pref.getString("password", "");
     }
 
+    //huege
+
 }
