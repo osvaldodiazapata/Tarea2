@@ -8,10 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="splashStyle" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:windowBackground">@drawable/splash</item>
 
-    </style>
 
     <style name="MainStyle" parent="Theme.AppCompat.NoActionBar">
         <item name="android:background">@color/goldenrod</item>

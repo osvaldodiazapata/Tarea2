@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyLogin</string>
+    <string name="app_name">Osfre</string>
     <string name="miperfil">Mi perfil</string>
     <string name="login">LOGIN</string>
     <string name="main">MAIN</string>
@@ -49,6 +49,8 @@
     <string name="CodigoQr">Lector qrCode</string>
     <string name="Pedidos">mis Pedidos</string>
     <string name="Empezar">Comenzar</string>
+    <string name="pause">pause</string>
+    <string name="mostrar">mostrar</string>
 
 
 </resources>
