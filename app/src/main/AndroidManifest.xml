@@ -3,8 +3,10 @@
     package="d.osvaldo.tarea2">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".MyApp"
@@ -17,8 +19,9 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
-        <meta-data android:name="com.google.android.gms.vision.DEPENDENCIES"
-            android:value="barcode"/>
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="barcode" />
 
         <activity
             android:name=".SplashActivity"
@@ -48,7 +51,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".QrActivity"
-            android:label="@string/CodigoQr"/>
+            android:label="@string/CodigoQr" />
+        <activity android:name=".UbicacionActivity"></activity>
     </application>
 
 </manifest>
