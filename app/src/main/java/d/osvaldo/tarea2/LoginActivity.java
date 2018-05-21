@@ -51,7 +51,7 @@ import d.osvaldo.tarea2.model.Usuarios;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
-    Switch spreferences;
+
     EditText email, password;
     Button btnlogin, btnLoginContraseña;
     String passprevio="", Userprevio="";
@@ -192,7 +192,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         password =  findViewById(R.id.ePassword);
         btnlogin =  findViewById(R.id.bLogin);
         btnLoginContraseña=  findViewById(R.id.bLoginContraseña);
-        spreferences =  findViewById(R.id.sPreferences);
 
         withGoogle();
         withfacebook();
@@ -287,14 +286,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
 
     private void saveOnPreferences(String correo, String password){
-        if (spreferences.isChecked()){
-            SharedPreferences.Editor editor = pref.edit();
-            editor.putString("correo", correo);
-            editor.putString("password", password);
-            //editor.commit();//este metodo detiene la ejecucion del programa hasta que todos los datos se guarden en prefeences. se conoce como shared sincrono
-            editor.apply();//esta linea permite que el almacenamiento de los datos, se haga por debajo de la ejecucion. conocido como shared asincrono
 
-        }
 
     }
 

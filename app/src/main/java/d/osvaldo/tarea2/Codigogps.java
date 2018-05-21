@@ -224,7 +224,7 @@ public class Codigogps extends AppCompatActivity implements ZBarScannerView.Resu
     public void handleResult(Result result) {
         Log.v(TAG,result.getContents());//imprime el valor del codigo - para verlo en el logcat se filtra con V/Scannerlog:
         Log.v(TAG, result.getBarcodeFormat().getName());// imprime el tipo de codigo
-        Intent intent= new Intent(Codigogps.this, MainActivity.class);
+        Intent intent= new Intent(Codigogps.this, ProductosActivity.class);
         startActivity(intent);
 
     }

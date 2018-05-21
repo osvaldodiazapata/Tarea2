@@ -18,7 +18,7 @@
 	<item name="darkviolet" type="color">#006400</item>
 	<item name="darkslategray" type="color">#2f4f4f</item>
 	<item name="darkslateblue" type="color">#483d8b</item>
-	<item name="green" type="color">#008000</item>
+	<item name="green" type="color">#b9baf3</item>
 	<item name="red" type="color">#ff0000</item>
 	<item name="firebrick" type="color">#b22222</item>
 	<item name="brown" type="color">#a52a2a</item>
@@ -64,7 +64,7 @@
 	<item name="palevioletred" type="color">#d87093</item>
 	<item name="lime" type="color">#00ff00</item>
 	<item name="orchid" type="color">#da70d6</item>
-	<item name="rosybrown" type="color">#bc8f8f</item>
+	<item name="rosybrown" type="color">#b9baf3</item>
 	<item name="hotpink" type="color">#ff69b4</item>
 	<item name="darkorange" type="color">#ff8c00</item>
 	<item name="coral" type="color">#ff7f50</item>
@@ -103,7 +103,7 @@
 	<item name="greenyellow" type="color">#adff2f</item>
 	<item name="palegreen" type="color">#98fb98</item>
 	<item name="powderblue" type="color">#b0e0e6</item>
-	<item name="lightgray" type="color">#d3d3d3</item>
+	<item name="lightgray" type="color">#040404</item>
 	<item name="aquamarine" type="color">#7fffd4</item>
 	<item name="pink" type="color">#ffc0cb</item>
 	<item name="paleturquoise" type="color">#afeeee</item>
@@ -129,7 +129,7 @@
 	<item name="oldlace" type="color">#fdf5e6</item>
 	<item name="lightcyan" type="color">#e0ffff</item>
 	<item name="lemonchiffon" type="color">#fffacd</item>
-	<item name="aliceblue" type="color">#f0f8ff</item>
+	<item name="aliceblue" type="color">#f5f6f7</item>
 	<item name="cornsilk" type="color">#fff8dc</item>
 	<item name="seashell" type="color">#fff5ee</item>
 	<item name="ghostwhite" type="color">#f8f8ff</item>
