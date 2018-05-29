@@ -15,7 +15,7 @@
         android:layout_height="0dp"
         android:layout_weight="0.9"
         android:id="@+id/recyclerview"
-        android:background="@color/darkgoldenrod"
+       
          />
     <Button
         android:id="@+id/btnComprar"
