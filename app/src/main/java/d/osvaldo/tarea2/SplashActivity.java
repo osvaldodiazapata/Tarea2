@@ -30,7 +30,7 @@ public class SplashActivity extends AppCompatActivity {
 
         startActivity(intentLogin);
         }*/
-        startActivity(intentLogin);
+        startActivity(intentProductos);
         finish();
     }
     private String getUserMailPref(){return pref.getString("correo", "");}

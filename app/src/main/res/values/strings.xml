@@ -49,6 +49,12 @@
     <string name="CodigoQr">Lector qrCode</string>
     <string name="Pedidos">mis Pedidos</string>
     <string name="Empezar">Comenzar</string>
+    <string name="PRECIO">PRECIO</string>
+    <string name="CANTIDAD">CANTIDAD</string>
+    <string name="comprar">COMPRAR</string>
+    <string name="Inventario">00</string>
+    <string name="pause">pause</string>
+    <string name="mostrar">mostrar</string>
 
 
 </resources>

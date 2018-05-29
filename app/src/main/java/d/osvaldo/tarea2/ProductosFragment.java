@@ -7,8 +7,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,8 +30,10 @@ import d.osvaldo.tarea2.model.Productos;
 public class ProductosFragment extends Fragment {
 
     private RecyclerView recyclerView;
+    private Button btcomprar;
     private RecyclerView.Adapter adapterProductos;
     private RecyclerView.LayoutManager layoutManager;
+
 
     private ArrayList<Productos> productoslist;
 
@@ -49,6 +54,7 @@ public class ProductosFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getContext());
         adapterProductos = new AdapterProductos(productoslist, R.layout.cardview_detalle, getActivity());
 
+
         recyclerView = itemView.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
@@ -57,17 +63,17 @@ public class ProductosFragment extends Fragment {
         //firebaseDatabase.getInstance().setPersistenceEnabled(true); //activa la persistencia de datos
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.keepSynced(true);
-        databaseReference.child("Productos").addValueEventListener(new ValueEventListener() {
+        databaseReference.child("inventario").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 productoslist.clear();
                 if (dataSnapshot.exists()){
-                    Log.d("data: ", "tenemos informacion");
+                    //Log.d("data: ", "tenemos informacion");
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                        Log.d("datossssss ", "tenemos"+ snapshot.getValue());
+                        //Log.d("datossssss ", "tenemos"+ snapshot.getValue());
                         Productos productos = snapshot.getValue(Productos.class);
                         productoslist.add(productos);
-                        Log.d("lista ", "tenemos " + productoslist);
+                        //Log.d("lista ", "tenemos " + productoslist);
                     }
                     adapterProductos.notifyDataSetChanged();
                     Log.d("notificacion", "realizada");
@@ -78,6 +84,31 @@ public class ProductosFragment extends Fragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        btcomprar = itemView.findViewById(R.id.btnComprar);
+        btcomprar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                for (int i =0;i<productoslist.size();i++) {
+                    String nombre = productoslist.get(i).getNombre();
+                    String id = productoslist.get(i).getPrecio();
+                    String cantidad = productoslist.get(i).getCantidad();
+                    Toast.makeText(getActivity(), " " + nombre + id + cantidad, Toast.LENGTH_SHORT).show();
+
+
+
+                    /*
+                    if(nombre.equals("0")){
+                        Toast.makeText(getActivity(), "cero" , Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getActivity(), "no tenemos milo ", Toast.LENGTH_SHORT).show();
+                    }
+*/
+
+                }
 
             }
         });

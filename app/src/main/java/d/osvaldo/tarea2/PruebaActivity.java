@@ -45,8 +45,10 @@ public class PruebaActivity extends AppCompatActivity {
         ePassword = findViewById(R.id.edPassword);
         ePrivilegio = findViewById(R.id.edPrivilegio);
         listView = findViewById(R.id.listView);
+
         databaseReference = FirebaseDatabase.getInstance().getReference();
         listUsuarios = new ArrayList<Usuarios>();
+
         final UsuarioAdapter usuarioAdapter = new UsuarioAdapter(this, listUsuarios);
         listView.setAdapter(usuarioAdapter);
         /*listView.setOnItemLongClickListener(
@@ -103,6 +105,8 @@ public class PruebaActivity extends AppCompatActivity {
         @NonNull
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
+
             LayoutInflater inflater = LayoutInflater.from(getContext());
             View item = inflater.inflate(R.layout.list_item,  null);
 

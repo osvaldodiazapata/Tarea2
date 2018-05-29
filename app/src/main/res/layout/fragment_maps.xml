@@ -6,15 +6,18 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/tvPedido"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="este es el segundo fragment" />
+        android:text="" />
 
-    <Button
+    <ListView
+        android:id="@+id/listPedidos"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:id="@+id/btnmaps"
-        android:text="botonprueba"/>
+        android:layout_height="wrap_content">
+
+    </ListView>
+
+
 
 </FrameLayout>
