@@ -68,7 +68,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
-                android:background="@mipmap/ic_launcher_plus"
+                android:background="@mipmap/ic_launcher_minus_circle"
                 android:enabled="false"
                 android:onClick="RestarProducto" />
 

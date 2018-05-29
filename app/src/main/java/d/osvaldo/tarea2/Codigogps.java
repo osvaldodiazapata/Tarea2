@@ -12,14 +12,27 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.facebook.login.LoginManager;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.io.IOException;
 import java.util.List;
@@ -28,7 +41,7 @@ import java.util.Locale;
 import me.dm7.barcodescanner.zbar.Result;
 import me.dm7.barcodescanner.zbar.ZBarScannerView;
 
-public class Codigogps extends AppCompatActivity implements ZBarScannerView.ResultHandler {
+public class Codigogps extends AppCompatActivity implements ZBarScannerView.ResultHandler, GoogleApiClient.OnConnectionFailedListener {
     private final static String TAG="Scannerlog";
     private ZBarScannerView mScannerView;
     private String addressgps;
@@ -42,12 +55,80 @@ public class Codigogps extends AppCompatActivity implements ZBarScannerView.Resu
     private Geocoder geocoder;
     private List<Address> addresses;
 
+    private FirebaseAuth firebaseauth; //componente para manejar la autenticacion
+    private FirebaseAuth.AuthStateListener authStateListener; //componente listen
+
+    private GoogleApiClient googleApiClient;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_qr, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.logout_forget:
+                firebaseauth.signOut();
+                Log.d("Manejador", "cosas : "+ LoginManager.getInstance());
+                if (Auth.GoogleSignInApi != null){
+                    Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
+                        @Override
+                        public void onResult(@NonNull Status status) {
+                            if (status.isSuccess()){
+                                gotoLogin();
+                            }else{
+                                Toast.makeText(Codigogps.this, "Error cerrando Sesion con Google",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                    Log.d("CerrarSesion", "Google");
+                }
+                if (LoginManager.getInstance() != null){
+                    Log.d("CerrarSesion", "facebook");
+                    LoginManager.getInstance().logOut();
+                }
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void gotoLogin() {
+        Intent intentLogin = new Intent(this, LoginActivity.class);
+        startActivity(intentLogin);
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mScannerView = new ZBarScannerView(this);
         setContentView(mScannerView);
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+        firebaseauth = FirebaseAuth.getInstance();
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                if(firebaseUser != null){
+                    Log.d("firebaseUser", "Ususario Logeado" + firebaseUser.getDisplayName());
+                    Log.d("firebaseUser", "Ususario Logeado" + firebaseUser.getEmail());
+                }else{
+                    Log.d("firebaseUser", "no hay Ususario LOgeado" );
+                }
+            }
+        };
 
     //--------GPS---------------
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -243,6 +324,16 @@ public class Codigogps extends AppCompatActivity implements ZBarScannerView.Resu
             startActivity(intent);
             Toast.makeText(this, "USTED NO ESTA EN EL LUGAR INDICADO", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 
     //------------------------------------<FIN CODIGO>---------------------------------------------

@@ -23,6 +23,13 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import d.osvaldo.tarea2.model.Usuarios;
 
 public class PerfilActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
@@ -31,7 +38,8 @@ public class PerfilActivity extends AppCompatActivity implements GoogleApiClient
     private SharedPreferences pref;
     private FirebaseAuth firebaseauth; //componente para manejar la autenticacion
     private FirebaseAuth.AuthStateListener authStateListener; //componente listen
-
+    private DatabaseReference databaseReference;
+    private FirebaseDatabase database;
     private GoogleApiClient googleApiClient;
 
     @Override
@@ -53,6 +61,30 @@ public class PerfilActivity extends AppCompatActivity implements GoogleApiClient
                 .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+
+
+        database = FirebaseDatabase.getInstance();
+        databaseReference =database.getReference("usuarios");
+
+        Toast.makeText(PerfilActivity.this, firebaseauth.getCurrentUser().getUid(), Toast.LENGTH_SHORT).show();
+        databaseReference.child(firebaseauth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    Usuarios usuario = dataSnapshot.getValue(Usuarios.class);
+
+                    String nombre = usuario.getNombre();
+                    Toast.makeText(PerfilActivity.this, nombre, Toast.LENGTH_SHORT).show();
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
     private void setCredentialsExis(){
         String preEmail = getUserMailPref();
@@ -82,11 +114,8 @@ public class PerfilActivity extends AppCompatActivity implements GoogleApiClient
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.Principal:
-                gotoPrincipal();
-                return true;
-            case R.id.mipruebaActivity:
-                gotoprueba();
+            case R.id.NuestraApp:
+                gotoMain();
                 return true;
             case R.id.miproduActivity:
                 gotoproductos();
@@ -122,17 +151,13 @@ public class PerfilActivity extends AppCompatActivity implements GoogleApiClient
         startActivity(intentLogin);
         finish();
     }
-    private void gotoprueba() {
-        Intent intent = new Intent(this, PruebaActivity.class);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
+
     private void gotoproductos() {
         Intent intent = new Intent(this, ProductosActivity.class);
         //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
-    private void gotoPrincipal(){
+    private void gotoMain(){
         Intent intent = new Intent(this, MainActivity.class);
         finish();
         startActivity(intent);

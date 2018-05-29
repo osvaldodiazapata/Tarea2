@@ -192,7 +192,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         password =  findViewById(R.id.ePassword);
         btnlogin =  findViewById(R.id.bLogin);
         btnLoginContraseña=  findViewById(R.id.bLoginContraseña);
-        spreferences =  findViewById(R.id.sPreferences);
+        //spreferences =  findViewById(R.id.sPreferences);
 
         withGoogle();
         withfacebook();

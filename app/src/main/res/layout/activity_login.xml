@@ -7,133 +7,154 @@
     tools:context="d.osvaldo.tarea2.LoginActivity"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@color/burlywood">
+    android:background="#0753de">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:src="@drawable/imagenosfre"
+        android:layout_weight="6"
+        android:src="@drawable/osfre"
 
         />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:layout_weight="5"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="15sp"
+                android:layout_marginRight="3dp"
+                android:layout_weight="4"
+                android:gravity="right"
                 android:text="@string/correo1"
-                />
+                android:textColor="@color/aliceblue"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/eCorreo"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="15sp"
+                android:layout_weight="5"
+                android:background="@color/aliceblue"
+                android:gravity="left"
                 android:hint="@string/gonzalo_gmail_com"
-                android:inputType="textEmailAddress"/>
+                android:inputType="textEmailAddress"
+                android:paddingLeft="5dp"
+                android:textColor="@color/lightgray"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="15sp"
+                android:layout_marginRight="3dp"
+                android:layout_weight="4"
+                android:gravity="right"
                 android:text="@string/contrasegna"
 
-                />
+                android:textColor="@color/aliceblue"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/ePassword"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="15sp"
+                android:layout_weight="5"
+                android:background="@color/aliceblue"
                 android:hint="@string/ingrese_su_contrase_a"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword"
+                android:paddingLeft="5dp"
+                android:textAllCaps="false"
+                android:textColor="@color/lightgray"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="40dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal"
+            android:padding="5dp">
 
             <Button
                 android:id="@+id/bLoginContraseña"
                 android:layout_width="wrap_content"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="15sp"
-                android:text="@string/registro"
+                android:layout_weight="1"
                 android:background="@color/rosybrown"
-                />
+                android:padding="0dp"
+                android:text="@string/registro"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
             <Button
                 android:id="@+id/bLogin"
                 android:layout_width="wrap_content"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="15sp"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="1"
                 android:background="@color/green"
                 android:text="@string/aceptar"
-                />
-
-            <Switch
-                android:id="@+id/sPreferences"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
                 android:textSize="15sp"
-                android:checked="true"
-                android:text="@string/recordar"
-                android:textAlignment="center"
-                tools:ignore="NewApi" />
+                android:textStyle="bold" />
 
 
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <com.google.android.gms.common.SignInButton
-                android:id="@+id/signIn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                />
 
-        </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <com.facebook.login.widget.LoginButton
                 android:id="@+id/btnSignInFacebook"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                />
+                android:layout_marginTop="1dp"
+                android:layout_weight="1"
+                android:paddingRight="-50dp" />
+
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/signIn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+            </com.google.android.gms.common.SignInButton>
+
         </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>

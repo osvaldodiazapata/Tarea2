@@ -60,7 +60,7 @@
             android:label="@string/main" />
         <activity
             android:name=".Codigogps"
-            android:theme="@style/splashStyle"
+
             />
         <activity
             android:name=".RegistroActivity"

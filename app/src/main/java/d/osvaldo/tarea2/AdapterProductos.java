@@ -74,8 +74,8 @@ public class AdapterProductos extends RecyclerView.Adapter<AdapterProductos.Prod
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //  Toast.makeText(activity, "Producto: "+productos.getNombre()+"\n id: "
-              //          +productos.getId()+"\n Precio: "+productos.getPrecio(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, "Producto: "+productos.getNombre()+"\n id: "
+                       +productos.getId()+"\n Precio: "+productos.getPrecio(), Toast.LENGTH_SHORT).show();
             }
         });
 

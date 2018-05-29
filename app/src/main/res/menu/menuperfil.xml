@@ -3,19 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/Principal"
-        android:title="@string/principal"
+        android:id="@+id/NuestraApp"
+        android:title="NuestraApp"
         app:showAsAction="never"
         />
 
     <item android:id="@+id/miproduActivity"
         android:title="Mis productos"
-        app:showAsAction="never">
-
-    </item>
-
-    <item android:id="@+id/mipruebaActivity"
-        android:title="Mis usuarios"
         app:showAsAction="never">
 
     </item>

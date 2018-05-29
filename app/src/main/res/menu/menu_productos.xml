@@ -1,4 +1,5 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<!--<menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ProductosActivity">
@@ -7,4 +8,23 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+</menu>-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto">
+<item android:id="@+id/miperfilactivity"
+    android:title="Mi perfil"
+    app:showAsAction="never">
+
+</item>
+<item android:id="@+id/NuestraApp"
+    android:title="NuestraApp"
+    app:showAsAction="never">
+
+</item>
+
+
+<item
+    android:id="@+id/logout_forget"
+    android:title="Cerrar Sesión"
+    app:showAsAction="never" />
 </menu>
