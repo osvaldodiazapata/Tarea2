@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -32,8 +34,8 @@ public class AdapterProductos extends RecyclerView.Adapter<AdapterProductos.Prod
     private int resource;
     private Activity activity;
     public Productos productos1;
-
-
+    DatabaseReference databaseReference  = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference refinven = databaseReference.child("inventario");
     public AdapterProductos(ArrayList<Productos> productoslist){
         this.productoslist = productoslist;
     }
@@ -69,8 +71,10 @@ public class AdapterProductos extends RecyclerView.Adapter<AdapterProductos.Prod
 
     @Override
     public void onBindViewHolder(final ProductosViewHolder holder, int position) {
+
         final Productos productos = productoslist.get(position);
         holder.bindProductos(productos, activity);
+
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
             @Override
@@ -101,11 +105,47 @@ public class AdapterProductos extends RecyclerView.Adapter<AdapterProductos.Prod
                 holder.edCantidadProductos.setText(String.valueOf(valor));
                 holder.tValor.setText(String.valueOf(valor*holder.precioInicial));
 
+                String uid = productos.getId();
+                //Toast.makeText(activity, ""+uid, Toast.LENGTH_SHORT).show();
+                refinven.child(uid).child("cantidad").setValue(String.valueOf(valor));
+                refinven.child(uid).child("precio").setValue(String.valueOf(valor*holder.precioInicial));
+                //Toast.makeText(activity, ""+refinven, Toast.LENGTH_SHORT).show();
+                //databaseReference.child("inventario").child(uid)
+
 
 
                 //Toast.makeText(activity, "proasdf"+ productos1.getCantidad(), Toast.LENGTH_SHORT).show();
 
                       /*
+                    Toast.makeText(activity, "Producto: "+ tNombre.getText().toString()+
+                            "\n Cantidad: "+edCantidadProductos.getText().toString()+
+                            "\n Precio: "+tValor.getText().toString(), Toast.LENGTH_SHORT).show();*/
+
+            }
+        });
+        holder.btnRestar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //int precioInicial = Integer.valueOf(tValor.getText().toString());
+                String uid = productos.getId();
+                int valor = Integer.valueOf(holder.edCantidadProductos.getText().toString());
+                if (valor > 0){
+                    valor-=1;
+                }
+                holder.edCantidadProductos.setText(String.valueOf(valor));
+                refinven.child(uid).child("cantidad").setValue(String.valueOf(valor));
+                if (valor == 0){
+                    holder.tValor.setText(String.valueOf(holder.precioInicial));
+                    refinven.child(uid).child("precio").setValue(String.valueOf(holder.precioInicial));
+                }else {
+                    holder.tValor.setText(String.valueOf(valor * holder.precioInicial));
+                    refinven.child(uid).child("precio").setValue(String.valueOf(valor*holder.precioInicial));
+                }
+
+                //Toast.makeText(activity, ""+uid, Toast.LENGTH_SHORT).show();
+
+                //refinven.child(uid).child("precio").setValue(String.valueOf(valor*holder.precioInicial));
+                    /*
                     Toast.makeText(activity, "Producto: "+ tNombre.getText().toString()+
                             "\n Cantidad: "+edCantidadProductos.getText().toString()+
                             "\n Precio: "+tValor.getText().toString(), Toast.LENGTH_SHORT).show();*/
@@ -224,7 +264,11 @@ public class AdapterProductos extends RecyclerView.Adapter<AdapterProductos.Prod
             tValor.setText(productos.getPrecio());
             tInventario.setText(productos.getInventario());
             edCantidadProductos.setText(productos.getCantidad());
-            precioInicial = Integer.valueOf(tValor.getText().toString());
+            try{
+                precioInicial = Integer.valueOf(tValor.getText().toString());
+            }catch (NumberFormatException ex){
+
+            }
 
             Picasso.get().load(productos.getFoto()).into(ifoto);
         }

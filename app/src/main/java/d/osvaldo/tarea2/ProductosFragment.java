@@ -96,7 +96,15 @@ public class ProductosFragment extends Fragment {
                     String nombre = productoslist.get(i).getNombre();
                     String id = productoslist.get(i).getPrecio();
                     String cantidad = productoslist.get(i).getCantidad();
-                    Toast.makeText(getActivity(), " " + nombre + id + cantidad, Toast.LENGTH_SHORT).show();
+
+                    if (cantidad.equals("0")){
+
+                    }else{
+                        Toast.makeText(getActivity(), "nombre" + nombre +
+                                "\n id " +id+
+                                "\n cantidad " +cantidad, Toast.LENGTH_SHORT).show();
+
+                    }
 
 
 
