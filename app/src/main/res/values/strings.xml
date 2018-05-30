@@ -55,6 +55,12 @@
     <string name="Inventario">00</string>
     <string name="pause">pause</string>
     <string name="mostrar">mostrar</string>
+     <string name="tt">Lo que buscamos con esta app, es
+ que las pesonas que visitan los pueblos del suroeste antioqueño, puedan
+ recibir una atención oportuna y ágil en los quioscos que se encuentran en
+ los parques centrales de dichos pueblos.
+ Para ello, cada persona podrá identificarse en el respectivo quiosco y
+ gestionar su pedido desde la app.</string>
 
 
 </resources>
