@@ -68,14 +68,58 @@ public class AdapterProductos extends RecyclerView.Adapter<AdapterProductos.Prod
     }
 
     @Override
-    public void onBindViewHolder(ProductosViewHolder holder, int position) {
+    public void onBindViewHolder(final ProductosViewHolder holder, int position) {
         final Productos productos = productoslist.get(position);
         holder.bindProductos(productos, activity);
+        holder.checkBox.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onClick(View view) {
+                if (holder.checkBox.isChecked()){
+                    //Toast.makeText(activity, "chekeado " + itemView.getId() , Toast.LENGTH_SHORT).show();
+                    Log.d("checkbox", "true");
+                    holder.btnRestar.setBackgroundColor(R.color.blueviolet);
+                    holder.btnRestar.setEnabled(Boolean.parseBoolean("true"));
+                    holder.btnSumar.setEnabled(Boolean.parseBoolean("true"));
+
+
+
+
+                }else{
+                    Log.d("checkbox", "false");
+                    holder.btnRestar.setEnabled(Boolean.parseBoolean("false"));
+                    holder.btnSumar.setEnabled(Boolean.parseBoolean("false"));
+                }
+            }
+        });
+        holder.btnSumar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // int precioInicial = Integer.valueOf(tValor.getText().toString());
+                int valor = Integer.valueOf(holder.edCantidadProductos.getText().toString());
+                valor +=1;
+                holder.edCantidadProductos.setText(String.valueOf(valor));
+                holder.tValor.setText(String.valueOf(valor*holder.precioInicial));
+
+
+
+                //Toast.makeText(activity, "proasdf"+ productos1.getCantidad(), Toast.LENGTH_SHORT).show();
+
+                      /*
+                    Toast.makeText(activity, "Producto: "+ tNombre.getText().toString()+
+                            "\n Cantidad: "+edCantidadProductos.getText().toString()+
+                            "\n Precio: "+tValor.getText().toString(), Toast.LENGTH_SHORT).show();*/
+
+            }
+        });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(activity, "Producto: "+productos.getNombre()+"\n id: "
-                       +productos.getId()+"\n Precio: "+productos.getPrecio(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, "Producto: "+productos.getNombre()+
+                        "\n id: "+productos.getId()+
+                        "\n Precio: "+productos.getPrecio()+
+                        "\n Cantidad: "+productos.getCantidad()+
+                        "\n Inventario: "+productos.getInventario(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -147,7 +191,7 @@ public class AdapterProductos extends RecyclerView.Adapter<AdapterProductos.Prod
 
                 }
             });
-            checkBox.setOnClickListener(new View.OnClickListener() {
+            /*checkBox.setOnClickListener(new View.OnClickListener() {
                 @SuppressLint("ResourceAsColor")
                 @Override
                 public void onClick(View view) {
@@ -167,7 +211,7 @@ public class AdapterProductos extends RecyclerView.Adapter<AdapterProductos.Prod
                             btnSumar.setEnabled(Boolean.parseBoolean("false"));
                         }
                 }
-            });
+            });*/
 
 
         }
