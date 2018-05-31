@@ -62,5 +62,9 @@
  Para ello, cada persona podrá identificarse en el respectivo quiosco y
  gestionar su pedido desde la app.</string>
 
+    <string name="CONFIRMAR">CONFIRMAR</string>
+    <string name="CONFIRMARCOMPRA">CONFIRMAR COMPRA</string>
+    <string name="NuestaApp">NuestraApp</string>
+
 
 </resources>

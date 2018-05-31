@@ -273,7 +273,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     private void gotoMain(){
-        Intent intent = new Intent(this, ProductosActivity.class);//SDFGSDFGSDFGSD
+        Intent intent = new Intent(this, Codigogps.class);//SDFGSDFGSDFGSD
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }

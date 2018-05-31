@@ -41,6 +41,7 @@ public class MapsFragment extends Fragment {
     private TextView tvProductos;
     private ListView listView;
     private ArrayList<Pedidos> listasPedidos;
+    int suma=0;
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
     DatabaseReference refPedidos = ref.child("pedidos");
     DatabaseReference refPedido1 = refPedidos.child("pedido2");
@@ -65,8 +66,8 @@ public class MapsFragment extends Fragment {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String UID = listasPedidos.toString();
-                Toast.makeText(getContext(), "cosa "+ UID, Toast.LENGTH_SHORT).show();
+                //String UID = listasPedidos.toString();
+                //Toast.makeText(getContext(), "cosa "+ UID, Toast.LENGTH_SHORT).show();
 
                 return false;
             }
@@ -81,7 +82,22 @@ public class MapsFragment extends Fragment {
                         Log.d("datosIMportados: ", dataSnapshot.getChildren().toString());
                         Pedidos pedidos = snapshot.getValue(Pedidos.class);
                         listasPedidos.add(pedidos);
+                        try{
+                            suma = suma + Integer.valueOf(pedidos.getPrecio_u());
+                        }catch (NumberFormatException ex){
+
+                        }
+
+
+
                     }
+                    if (listasPedidos.size() == 0){
+                        tvProductos.setText("__");
+                    }else{
+                        tvProductos.setText(String.valueOf(suma));
+                    }
+
+                    suma=0;
                     pedidosAdapter.notifyDataSetChanged();
                 }
 

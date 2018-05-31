@@ -48,7 +48,8 @@ public class PerfilActivity extends AppCompatActivity implements GoogleApiClient
         setContentView(R.layout.activity_perfil);
         eusuarioperfil = (TextView) findViewById(R.id.eUsuarioperfil);
         ecorreoperfil = (TextView) findViewById(R.id.eCorreoperfil);
-
+        eusuarioperfil.setText("osvaldo diaz");
+        ecorreoperfil.setText("osvaldolabolita@gmail.com");
         pref = getSharedPreferences("preferencias", Context.MODE_PRIVATE);
         setCredentialsExis();
         inicializar();
@@ -66,7 +67,7 @@ public class PerfilActivity extends AppCompatActivity implements GoogleApiClient
         database = FirebaseDatabase.getInstance();
         databaseReference =database.getReference("usuarios");
 
-        Toast.makeText(PerfilActivity.this, firebaseauth.getCurrentUser().getUid(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(PerfilActivity.this, firebaseauth.getCurrentUser().getUid(), Toast.LENGTH_SHORT).show();
         databaseReference.child(firebaseauth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -74,7 +75,9 @@ public class PerfilActivity extends AppCompatActivity implements GoogleApiClient
                     Usuarios usuario = dataSnapshot.getValue(Usuarios.class);
 
                     String nombre = usuario.getNombre();
-                    Toast.makeText(PerfilActivity.this, nombre, Toast.LENGTH_SHORT).show();
+                    eusuarioperfil.setText("osvaldo diaz");
+                    ecorreoperfil.setText("osvaldolabolita@gmail.com");
+                    //Toast.makeText(PerfilActivity.this, nombre, Toast.LENGTH_SHORT).show();
 
 
                 }

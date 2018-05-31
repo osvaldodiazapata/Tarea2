@@ -36,6 +36,9 @@ public class AdapterProductos extends RecyclerView.Adapter<AdapterProductos.Prod
     public Productos productos1;
     DatabaseReference databaseReference  = FirebaseDatabase.getInstance().getReference();
     DatabaseReference refinven = databaseReference.child("inventario");
+    DatabaseReference refcompras = databaseReference.child("compras");
+
+
     public AdapterProductos(ArrayList<Productos> productoslist){
         this.productoslist = productoslist;
     }
@@ -55,13 +58,13 @@ public class AdapterProductos extends RecyclerView.Adapter<AdapterProductos.Prod
             @Override
             public void onClick(View view) {
 
-                Log.d("dialog", "activado");
+                /*Log.d("dialog", "activado");
                 final Dialog dialog = new Dialog(itemView.getContext()); //pilas preguntar
                 dialog.setContentView(R.layout.descripcion_productos);
                 ImageView imageView = dialog.findViewById(R.id.imgDescripcion);
                 //Picasso.get().load(productos.getFoto()).into(imageView);
 
-                dialog.show();
+                dialog.show();*/
 
                 //Toast.makeText(activity, "abre actividad con detalle", Toast.LENGTH_SHORT).show();
             }
@@ -75,58 +78,39 @@ public class AdapterProductos extends RecyclerView.Adapter<AdapterProductos.Prod
         final Productos productos = productoslist.get(position);
         holder.bindProductos(productos, activity);
 
-        holder.checkBox.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("ResourceAsColor")
-            @Override
-            public void onClick(View view) {
-                if (holder.checkBox.isChecked()){
-                    //Toast.makeText(activity, "chekeado " + itemView.getId() , Toast.LENGTH_SHORT).show();
-                    Log.d("checkbox", "true");
-                    holder.btnRestar.setBackgroundColor(R.color.blueviolet);
-                    holder.btnRestar.setEnabled(Boolean.parseBoolean("true"));
-                    holder.btnSumar.setEnabled(Boolean.parseBoolean("true"));
+ //       holder.checkBox.setOnClickListener(new View.OnClickListener() {
+ //           @SuppressLint("ResourceAsColor")
+ //           @Override
+ //           public void onClick(View view) {
+ //               if (holder.checkBox.isChecked()){
+ //                   //Toast.makeText(activity, "chekeado " + itemView.getId() , Toast.LENGTH_SHORT).show();
+ //                   Log.d("checkbox", "true");
+        //                  holder.btnRestar.setBackgroundColor(R.color.blueviolet);
+        //            holder.btnRestar.setEnabled(Boolean.parseBoolean("true"));
+        //            holder.btnSumar.setEnabled(Boolean.parseBoolean("true"));
+        //        }else{
+        //            Log.d("checkbox", "false");
+        //            holder.btnRestar.setEnabled(Boolean.parseBoolean("false"));
+        //            holder.btnSumar.setEnabled(Boolean.parseBoolean("false"));
+        //        }
+        //    }
+        //});
 
-
-
-
-                }else{
-                    Log.d("checkbox", "false");
-                    holder.btnRestar.setEnabled(Boolean.parseBoolean("false"));
-                    holder.btnSumar.setEnabled(Boolean.parseBoolean("false"));
-                }
-            }
-        });
         holder.btnSumar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // int precioInicial = Integer.valueOf(tValor.getText().toString());
                 int valor = Integer.valueOf(holder.edCantidadProductos.getText().toString());
                 valor +=1;
                 holder.edCantidadProductos.setText(String.valueOf(valor));
-                holder.tValor.setText(String.valueOf(valor*holder.precioInicial));
-
                 String uid = productos.getId();
-                //Toast.makeText(activity, ""+uid, Toast.LENGTH_SHORT).show();
                 refinven.child(uid).child("cantidad").setValue(String.valueOf(valor));
-                refinven.child(uid).child("precio").setValue(String.valueOf(valor*holder.precioInicial));
-                //Toast.makeText(activity, ""+refinven, Toast.LENGTH_SHORT).show();
-                //databaseReference.child("inventario").child(uid)
-
-
-
-                //Toast.makeText(activity, "proasdf"+ productos1.getCantidad(), Toast.LENGTH_SHORT).show();
-
-                      /*
-                    Toast.makeText(activity, "Producto: "+ tNombre.getText().toString()+
-                            "\n Cantidad: "+edCantidadProductos.getText().toString()+
-                            "\n Precio: "+tValor.getText().toString(), Toast.LENGTH_SHORT).show();*/
-
-            }
+                refcompras.child(uid).child("cantidad").setValue(String.valueOf(valor));
+                refcompras.child(uid).child("precio").setValue(String.valueOf(valor*holder.precioInicial));
+           }
         });
         holder.btnRestar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //int precioInicial = Integer.valueOf(tValor.getText().toString());
                 String uid = productos.getId();
                 int valor = Integer.valueOf(holder.edCantidadProductos.getText().toString());
                 if (valor > 0){
@@ -134,12 +118,13 @@ public class AdapterProductos extends RecyclerView.Adapter<AdapterProductos.Prod
                 }
                 holder.edCantidadProductos.setText(String.valueOf(valor));
                 refinven.child(uid).child("cantidad").setValue(String.valueOf(valor));
+                refcompras.child(uid).child("cantidad").setValue(String.valueOf(valor));
                 if (valor == 0){
                     holder.tValor.setText(String.valueOf(holder.precioInicial));
-                    refinven.child(uid).child("precio").setValue(String.valueOf(holder.precioInicial));
+                    refcompras.child(uid).child("precio").setValue(String.valueOf(holder.precioInicial));
                 }else {
                     holder.tValor.setText(String.valueOf(valor * holder.precioInicial));
-                    refinven.child(uid).child("precio").setValue(String.valueOf(valor*holder.precioInicial));
+                    refcompras.child(uid).child("precio").setValue(String.valueOf(valor * holder.precioInicial));
                 }
 
                 //Toast.makeText(activity, ""+uid, Toast.LENGTH_SHORT).show();
@@ -152,7 +137,7 @@ public class AdapterProductos extends RecyclerView.Adapter<AdapterProductos.Prod
 
             }
         });
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        /*holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(activity, "Producto: "+productos.getNombre()+
@@ -161,7 +146,7 @@ public class AdapterProductos extends RecyclerView.Adapter<AdapterProductos.Prod
                         "\n Cantidad: "+productos.getCantidad()+
                         "\n Inventario: "+productos.getInventario(), Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 
 
     }
@@ -177,7 +162,7 @@ public class AdapterProductos extends RecyclerView.Adapter<AdapterProductos.Prod
         private CircleImageView ifoto;
         private Button btnSumar, btnRestar;
         private EditText edCantidadProductos;
-        private CheckBox checkBox;
+//        private CheckBox checkBox;
         public int precioInicial;
 
         public ProductosViewHolder(View itemView) {
@@ -189,17 +174,17 @@ public class AdapterProductos extends RecyclerView.Adapter<AdapterProductos.Prod
             btnSumar = itemView.findViewById(R.id.btnSumarCantidad);
             btnRestar = itemView.findViewById(R.id.btnRestarCantidad);
             edCantidadProductos = itemView.findViewById(R.id.edCantidadProductos);
-            checkBox = itemView.findViewById(R.id.chkProducto);
+//            checkBox = itemView.findViewById(R.id.chkProducto);
             btnSumar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                      // int precioInicial = Integer.valueOf(tValor.getText().toString());
-                      int valor = Integer.valueOf(edCantidadProductos.getText().toString());
-                      valor +=1;
-                      edCantidadProductos.setText(String.valueOf(valor));
-                      tValor.setText(String.valueOf(valor*precioInicial));
+                      //int valor = Integer.valueOf(edCantidadProductos.getText().toString());
+                      //valor +=1;
+                      //edCantidadProductos.setText(String.valueOf(valor));
+                      //tValor.setText(String.valueOf(valor*precioInicial));
 
-                      productos1.setCantidad((String) tValor.getText().toString());
+                      //productos1.setCantidad((String) tValor.getText().toString());
 
                       //Toast.makeText(activity, "proasdf"+ productos1.getCantidad(), Toast.LENGTH_SHORT).show();
 
@@ -214,16 +199,16 @@ public class AdapterProductos extends RecyclerView.Adapter<AdapterProductos.Prod
                 @Override
                 public void onClick(View view) {
                     //int precioInicial = Integer.valueOf(tValor.getText().toString());
-                    int valor = Integer.valueOf(edCantidadProductos.getText().toString());
-                    if (valor > 0){
-                        valor-=1;
-                    }
-                    edCantidadProductos.setText(String.valueOf(valor));
-                    if (valor == 0){
-                        tValor.setText(String.valueOf(precioInicial));
-                    }else {
-                        tValor.setText(String.valueOf(valor * precioInicial));
-                    }
+                    //int valor = Integer.valueOf(edCantidadProductos.getText().toString());
+                    //if (valor > 0){
+                    //    valor-=1;
+                    //}
+                    //edCantidadProductos.setText(String.valueOf(valor));
+                    //if (valor == 0){
+                    //    tValor.setText(String.valueOf(precioInicial));
+                    //}else {
+                    //    tValor.setText(String.valueOf(valor * precioInicial));
+                    //}
                     /*
                     Toast.makeText(activity, "Producto: "+ tNombre.getText().toString()+
                             "\n Cantidad: "+edCantidadProductos.getText().toString()+
@@ -257,9 +242,8 @@ public class AdapterProductos extends RecyclerView.Adapter<AdapterProductos.Prod
         }
 
         public void bindProductos(Productos productos, Activity activity) {
-            Log.d("oncreateviewholder", "pasando"+productos.getNombre());
-
-            productos1 = productos;
+            //Log.d("oncreateviewholder", "pasando"+productos.getNombre());
+            //productos1 = productos;
             tNombre.setText(productos.getNombre());
             tValor.setText(productos.getPrecio());
             tInventario.setText(productos.getInventario());
@@ -269,7 +253,6 @@ public class AdapterProductos extends RecyclerView.Adapter<AdapterProductos.Prod
             }catch (NumberFormatException ex){
 
             }
-
             Picasso.get().load(productos.getFoto()).into(ifoto);
         }
     }

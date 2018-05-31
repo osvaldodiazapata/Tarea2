@@ -37,6 +37,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+import java.util.StringTokenizer;
 
 import me.dm7.barcodescanner.zbar.Result;
 import me.dm7.barcodescanner.zbar.ZBarScannerView;
@@ -310,13 +311,34 @@ public class Codigogps extends AppCompatActivity implements ZBarScannerView.Resu
         super.onPause();
         mScannerView.stopCamera();           // Stop camera on pause
     }
+
+
+
     @Override
     public void handleResult(Result result) {
         String resultado = result.getContents().toString();
-        Log.d("TAGOS",result.getContents());//imprime el valor del codigo - para verlo en el logcat se filtra con V/Scannerlog:
-        Log.d("TAGOS", result.getBarcodeFormat().getName());// imprime el tipo de codigo
-        String resultado2 = addressgps;
-        if (resultado.equals(resultado2)) {
+        //Toast.makeText(this, ""+resultado, Toast.LENGTH_SHORT).show();
+    ///////////////////////////////////////////////////////////////////////////////////
+        StringTokenizer stringTokenizer = new StringTokenizer(resultado,"#");
+        int nDatos = stringTokenizer.countTokens();
+        String[] Datos = new String[nDatos];
+        int i = 0;
+        while(stringTokenizer.hasMoreTokens()){
+            String string = stringTokenizer.nextToken();
+            Datos[i]=string;
+            i++;
+        }
+
+        String ubicacion = Datos[0];
+        String tienda = Datos[1];
+        String mesa = Datos[2];
+        Toast.makeText(this, "Ubicacion: " + ubicacion + " TIENDA: " + tienda+ " MESA: " + mesa, Toast.LENGTH_SHORT).show();
+    ///////////////////////////////////////////////////////////////////////////////////
+        //Log.d("TAGOS",result.getContents());//imprime el valor del codigo - para verlo en el logcat se filtra con V/Scannerlog:
+        //Log.d("TAGOS", result.getBarcodeFormat().getName());// imprime el tipo de codigo
+
+        String dirreccionGPS = addressgps;
+        if (ubicacion.equals(dirreccionGPS)) {
             Intent intent = new Intent(Codigogps.this, ProductosActivity.class);
             startActivity(intent);
         }else{

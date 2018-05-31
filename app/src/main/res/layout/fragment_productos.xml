@@ -19,10 +19,11 @@
          />
     <Button
         android:id="@+id/btnComprar"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.1"
         android:layout_gravity="center"
+        android:background="#a0522d"
         android:text="@string/comprar"
         android:onClick="btnCOMPRAR"
         tools:ignore="OnClick" />

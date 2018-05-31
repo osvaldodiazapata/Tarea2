@@ -1,6 +1,8 @@
 package d.osvaldo.tarea2;
 
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +13,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -21,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import d.osvaldo.tarea2.model.Pedidos;
 import d.osvaldo.tarea2.model.Productos;
 
 
@@ -92,7 +97,7 @@ public class ProductosFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                for (int i =0;i<productoslist.size();i++) {
+                /*for (int i =0;i<productoslist.size();i++) {
                     String nombre = productoslist.get(i).getNombre();
                     String id = productoslist.get(i).getPrecio();
                     String cantidad = productoslist.get(i).getCantidad();
@@ -106,17 +111,31 @@ public class ProductosFragment extends Fragment {
 
                     }
 
+                    //if(nombre.equals("0")){
+                    //    Toast.makeText(getActivity(), "cero" , Toast.LENGTH_SHORT).show();
+                    //}else{
+                    //    Toast.makeText(getActivity(), "no tenemos milo ", Toast.LENGTH_SHORT).show();
+                    //}
 
 
-                    /*
-                    if(nombre.equals("0")){
-                        Toast.makeText(getActivity(), "cero" , Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(getActivity(), "no tenemos milo ", Toast.LENGTH_SHORT).show();
-                    }
-*/
+                }*/
+                /*                DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                //DatabaseReference refPedidos = ref.child("pedidos");
+                //DatabaseReference refPedido1 = refPedidos.child("pedido2");
+                //DatabaseReference refArticulo = refPedido1.child("articulos");
+                DatabaseReference refcompras = ref.child("compras");
+                ListView listView;
+                ArrayList<P> listasPedidos;
+                final Dialog dialog = new Dialog(view.getContext()); //pilas preguntar
+                dialog.setContentView(R.layout.descripcion_productos);
 
-                }
+
+                ImageView imageView = dialog.findViewById(R.id.imgDescripcion);
+                //Picasso.get().load(productos.getFoto()).into(imageView);
+
+                dialog.show();*/
+                gotoproductos();
+
 
             }
         });
@@ -129,7 +148,11 @@ public class ProductosFragment extends Fragment {
         super.onStart();
 
     }
-
+    private void gotoproductos() {
+        Intent intent = new Intent(getContext(), compraActivity.class);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
     @Override
     public void onResume() {
         super.onResume();
